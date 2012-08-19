@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>pl.softace</groupId>
+	<artifactId>passwordless</artifactId>
+	<version>1.0.0-snapshot</version>
+	<packaging>apk</packaging>
+	<name>Passwordless</name>
+
+	<properties>
+		<android.manifest>${project.basedir}/AndroidManifest.xml</android.manifest>
+		<android.sdk>${ANDROID_HOME}</android.sdk>
+		<android.target>7</android.target>		
+	</properties>
+
+	<build>
+		<finalName>${project.artifactId}-${project.version}</finalName>
+		<sourceDirectory>src</sourceDirectory>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+					<artifactId>android-maven-plugin</artifactId>
+					<version>3.3.0</version>
+					<extensions>true</extensions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+				<artifactId>android-maven-plugin</artifactId>
+				<version>3.3.0</version>
+				<configuration>
+					<sdk>
+						<path>${android.sdk}</path>
+						<platform>${android.target}</platform>						
+					</sdk>
+					<androidManifestFile>${android.manifest}</androidManifestFile>
+				</configuration>
+			</plugin>			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/dependencies</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+							<excludeGroupIds>org.testng,org.easymock,junit</excludeGroupIds>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>android</artifactId>
+			<version>1.6_r2</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.mina</groupId>
+			<artifactId>mina-core</artifactId>
+			<version>2.0.4</version>
+		</dependency>		
+	</dependencies>	
+</project>
