@@ -8,5 +8,6 @@
     <string name="label_password">Password:</string>
     <string name="button_start">Start</string>
     <string name="statusText"></string>
+    <string name="button_stop">Stop</string>
 
 </resources>
